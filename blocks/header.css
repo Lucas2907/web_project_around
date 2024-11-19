@@ -1,11 +1,13 @@
 .header {
-  width: 68.75%;
+  width: 100%;
+  max-width: 880px;
 }
 
 .header__logo {
-  margin-bottom: 41px ;
+  margin-bottom: 41px;
 }
 
 .header__line {
   border: 1px solid #545454;
+  margin: 0 0 40px;
 }
