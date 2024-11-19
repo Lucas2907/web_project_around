@@ -1,0 +1,6 @@
+.page{
+  display: flex;
+  background-color: black;
+  justify-content: center;
+  padding: 45px 0 60px 0;
+}
