@@ -1,6 +1,9 @@
 .page{
+  font-family: "Inter", sans-serif;
   display: flex;
+  flex-direction: column;
   background-color: black;
-  justify-content: center;
-  padding: 45px 0 60px 0;
+  justify-content: start;
+  align-items: center;
+  padding: 45px 200px 60px 200px;
 }
