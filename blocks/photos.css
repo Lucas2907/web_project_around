@@ -1,0 +1,38 @@
+.photos {
+  width: 100%;
+  max-width: 880px;
+  color: black;
+  margin-top: 50px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto;
+  gap: 17px 20px;
+}
+
+.photos__card {
+  width: 100%;
+  max-width: 282px;
+  min-height: 361px;
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.photos__card-image {
+  width: 100%;
+  max-width: 282px;
+  height: 282px;
+  object-fit: cover;
+}
+
+.photos__elements {
+  display: flex;
+  padding: 25px 21px;
+  align-items: center;
+}
+
+.photos__elements-text {
+  margin: 0 auto 0 0;
+}
