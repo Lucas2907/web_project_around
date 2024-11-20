@@ -25,7 +25,6 @@
   max-width: 420px;
   flex-wrap: wrap;
   margin-right: auto;
-
 }
 
 .profile__title {
@@ -61,4 +60,19 @@
   box-sizing: border-box;
   align-items: center;
   justify-content: center;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1279px) {
+  .profile__feat {
+    justify-content: normal;
+    gap: 18px;
+  }
+
+  .profile__title {
+    font-size: 30px;
+  }
+
+  .profile__text {
+    margin-top: 0;
+  }
 }
