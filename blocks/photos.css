@@ -22,6 +22,7 @@
 
 .photos__card-image {
   width: 100%;
+  min-width: 282px;
   height: 282px;
   object-fit: cover;
 }
@@ -45,5 +46,12 @@
 
   .photos__elements-text {
     font-size: 20px;
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .photos {
+    grid-template-columns: repeat(1, 1fr);
+    justify-items: center;
   }
 }
