@@ -40,6 +40,11 @@
   box-sizing: border-box;
 }
 
+.profile__border_pincel:hover {
+  opacity: 60%;
+  cursor: pointer;
+}
+
 .profile__text {
   width: 100%;
   margin: 16px 0 0;
@@ -55,6 +60,11 @@
   box-sizing: border-box;
   align-items: center;
   justify-content: center;
+}
+
+.profile__border_plus:hover {
+  opacity: 60%;
+  cursor: pointer;
 }
 
 @media screen and (min-width: 768px) and (max-width: 1279px) {
