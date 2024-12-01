@@ -13,11 +13,12 @@
 }
 
 .profile__feat {
+  display: flex;
+  gap: 10px;
   color: white;
   display: flex;
-  justify-content: space-between;
   align-items: end;
-  max-width: 420px;
+  max-width: 600px;
   flex-wrap: wrap;
   margin-right: auto;
 }
@@ -27,7 +28,11 @@
   font-size: 42px;
   line-height: 48px;
   margin: 0;
+  max-width: 450px;
   max-height: 39px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .profile__border_pincel {
@@ -75,6 +80,7 @@
 
   .profile__title {
     font-size: 30px;
+    max-width: 300px;
   }
 
   .profile__text {
