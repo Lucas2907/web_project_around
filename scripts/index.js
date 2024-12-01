@@ -1,4 +1,4 @@
-let openProfile = document.querySelector(".profile__border_pincel");
+let openProfile = document.querySelector(".profile__border-pincel");
 let popup = document.querySelector(".popup");
 let closePopup = document.querySelector(".popup__close-button");
 let inputName = document.querySelector("#name");
