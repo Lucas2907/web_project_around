@@ -35,6 +35,18 @@
 
 .photos__elements-text {
   margin: 0 auto 0 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.photos__like:hover {
+  opacity: 50%;
+  cursor: pointer;
+}
+
+.photos__like.clicked {
+  opacity: 100%;
 }
 
 @media screen and (min-width: 768px) and (max-width: 1279px) {
