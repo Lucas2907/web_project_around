@@ -14,7 +14,7 @@ Página representativa de um perfil individual dentro de uma rede social. onde �
 
 - **CSS3**: Estilização da página (normalize, flexbox, grid, gradiant, box-shadow e media queries (para responsividade))
 
-- **JavaScript**: Para interatividade do site (Alterar o nome, curtir ou descurtir fotos)
+- **JavaScript**: Para interatividade do site (Alterar o nome, curtir ou descurtir fotos), além da adição de cards
 
 - **Site Inter**: As fontes foram baixadas para o projeto pelo site oficial da **fonte Inter**
 
@@ -23,7 +23,7 @@ Página representativa de um perfil individual dentro de uma rede social. onde �
 - **Header**: Apresenta uma logo do site alinhada a esquerda
 - **Profile/Section** Apresenta uma imagem redonda ao canto direito juntamente com um titulo para o nome, uma profissção que podem ser alteradas apertando no botao ao lado em formato de pincel, jutamente com um botao para adicionar imagens(AINDA NÃO FUNCIONAL)
 
-- **Photos/Section** imagens de diferentes Lugares com nome do lugar e um botão em formato de coração para curtir. essa seção é totalmente responsiva ou seja a expêriencia do usuário não será afetada por diferentes dispositivos
+- **Photos/Section** imagens de diferentes Lugares com nome do lugar e um botão em formato de coração para curtir, descurtir, juntamente com um ícone de lixeira paraapagar os cards. essa seção é totalmente responsiva ou seja a expêriencia do usuário não será afetada por diferentes dispositivos
 
 - **Footer** Apresenta um texto de direitos autorais **© 2024. Around The U.S.** referente aos direitos reservados
 
