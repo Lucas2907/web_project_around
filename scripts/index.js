@@ -1,6 +1,8 @@
 //Armazenamento de variavéis
 let openProfile = document.querySelector(".profile__border-pincel");
 let openCreation = document.querySelector(".profile__border-plus");
+let formElementProfile = document.querySelector(".popup__forms-profile");
+let formElementCreation = document.querySelector(".popup__forms-creation");
 let openImage = document.querySelector(".photos__card-image")
 let popup = document.querySelector(".popup");
 let popupSobreposition = document.querySelector(".popup-sobreposition")
@@ -10,13 +12,13 @@ let popupImageSource = document.querySelector(".popup-image__image")
 let closePopup = document.querySelector(".popup__close-button");
 let closePopupImage = document.querySelector(".popup__close-button_image");
 let inputName = document.querySelector("#name");
-let profileTitle = document.querySelector(".profile__title");
 let inputAbout = document.querySelector("#aboutme");
+let inputTitle = document.querySelector("#title");
+let inputUrl = document.querySelector("#url");
+let profileTitle = document.querySelector(".profile__title");
 let profileText = document.querySelector(".profile__text");
-let formElement = document.querySelector(".popup__forms");
 let titlePopup = document.querySelector(".popup__title");
 let submitButton = document.querySelector(".popup__button");
-let currentPopup = "";
 
 //Armazena NOME e LINK para cards iniciais
 const initialCards = [
@@ -127,64 +129,47 @@ function renderCards(cardList) {
   });
 }
 
-//Altera o conteúdo do Popup de acordo com o seu tipo
-function updatePopup(title, name, about, nameholder, aboutholder, button) {
-  titlePopup.textContent = title;
-  inputName.value = name;
-  inputAbout.value = about;
-  inputName.placeholder = nameholder;
-  inputAbout.placeholder = aboutholder;
-  submitButton.textContent = button;
-}
-
 //Função do submit no Popup perfil
-function handleProfileFormsSubmit() {
+function handleProfileFormsSubmit(evt) {
+  evt.preventDefault()
   profileTitle.textContent = inputName.value;
   profileText.textContent = inputAbout.value;
   togglePopup();
 }
 
 //função do submit no Popup de Criação
-function handleCreationFormsSubmit() {
+function handleCreationFormsSubmit(evt) {
+  evt.preventDefault();
   const newCard = {
-    name: inputName.value,
-    link: inputAbout.value
+    name: inputTitle.value,
+    link: inputUrl.value
   };
   const card = createCard(newCard);
   document.querySelector('.photos').prepend(card);
   togglePopup();
 }
 
-//Verifica qual o current Popup e realiza a função específica.
-function handleAllFormsSubmit(evt) {
-  evt.preventDefault();
-  if (currentPopup === "profile") {
-    handleProfileFormsSubmit();
-  } else if (currentPopup === "creation") {
-    handleCreationFormsSubmit();
-  }
-}
-
 //Estrutura do Popup do perfil
 openProfile.addEventListener("click", () => {
-  currentPopup = "profile";
-  updatePopup("Editar Perfil", profileTitle.textContent, profileText.textContent, "Nome", "Profissão", "Salvar");
+  formElementCreation.classList.remove("popup__forms-opened")
+  formElementProfile.classList.add("popup__forms-opened")
   togglePopup();
+
 });
 
 //Estrutura do Popup de Criação
 openCreation.addEventListener("click", () => {
-  currentPopup = "creation";
-  updatePopup("Novo local", "", "", "Título", "Link de imagem", "Criar");
+  formElementCreation.reset()
+  formElementProfile.classList.remove("popup__forms-opened")
+  formElementCreation.classList.add("popup__forms-opened")
   togglePopup();
 });
 
-
-
 renderCards(initialCards);
 
-formElement.addEventListener("submit", handleAllFormsSubmit);
-closePopup.addEventListener("click", togglePopup,);
+formElementProfile.addEventListener("submit", handleProfileFormsSubmit);
+formElementCreation.addEventListener("submit", handleCreationFormsSubmit);
+closePopup.addEventListener("click", togglePopup);
 closePopupImage.addEventListener("click", () => {
   toggleImagePopup();
   popupSobrepositionImage();

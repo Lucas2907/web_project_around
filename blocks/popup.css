@@ -89,6 +89,18 @@
   flex-direction: column;
 }
 
+.popup__forms-profile {
+  display: none;
+}
+
+.popup__forms-creation {
+  display: none;
+}
+
+.popup__forms-opened {
+  display: flex;
+}
+
 .popup__inputs {
   display: flex;
   flex-direction: column;
@@ -152,5 +164,9 @@
   .popup__close-button {
     top: -60px;
     right: 0;
+  }
+
+  .popup__close-button_image {
+    top: -10px;
   }
 }
