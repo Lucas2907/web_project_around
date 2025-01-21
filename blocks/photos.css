@@ -38,6 +38,10 @@
   object-fit: cover;
 }
 
+.photos__card-image:hover {
+  cursor: pointer;
+}
+
 
 .photos__delete-icon {
   position: absolute;
