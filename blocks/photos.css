@@ -30,14 +30,6 @@
   object-fit: cover;
 }
 
-.photos__card-image {
-  filter: brightness(80%);
-  width: 100%;
-  min-width: 282px;
-  height: 282px;
-  object-fit: cover;
-}
-
 .photos__card-image:hover {
   cursor: pointer;
 }

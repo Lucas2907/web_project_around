@@ -14,15 +14,18 @@
 
 .popup__container {
   width: 430px;
-  height: 330px;
+  min-height: 330px;
   background-color: #fff;
   border-radius: 10px;
-  padding: 34px 36px 36px;
+  padding: 34px 36px;
   box-sizing: border-box;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .popup-image {
@@ -117,8 +120,25 @@
   outline: none;
 }
 
+
+.popup__forms_type_error {
+  border-bottom-color: #ff0000;
+}
+
+.popup__input_error {
+  visibility: hidden;
+  font-size: 12px;
+  color: #ff0000;
+  margin-top: 5px;
+  height: 20px; /* Definir altura fixa */
+}
+
+.popup__input-error_active {
+  visibility: visible;
+}
+
 .popup__button {
-  margin-top: 48px;
+  margin-top: 24px ;
   padding: 15px auto;
   box-sizing: border-box;
   background-color: black;
@@ -133,6 +153,20 @@
 .popup__button:hover {
   opacity: 80%;
   cursor: pointer;
+}
+
+.popup__button-inactive {
+  background-color: #fff;
+  color: #666666;
+  opacity: 0.6;
+  border: 1px solid #000;
+}
+
+.popup__button-inactive:hover {
+  background-color: #fff;
+  color: #666;
+  opacity: 0.6;
+  cursor:default;
 }
 
 .popup__close-button {
@@ -157,7 +191,6 @@
 @media screen and (min-width: 320px) and (max-width: 767px) {
   .popup__container {
     max-width: 282px;
-    max-height: 322px;
     margin: 0 auto  ;
   }
 

@@ -1,14 +1,14 @@
-//Armazenamento de variavéis
+// Armazenamento de variáveis
 let openProfile = document.querySelector(".profile__border-pincel");
 let openCreation = document.querySelector(".profile__border-plus");
 let formElementProfile = document.querySelector(".popup__forms-profile");
 let formElementCreation = document.querySelector(".popup__forms-creation");
-let openImage = document.querySelector(".photos__card-image")
+let openImage = document.querySelector(".photos__card-image");
 let popup = document.querySelector(".popup");
-let popupSobreposition = document.querySelector(".popup-sobreposition")
+let popupSobrepositionImage = document.querySelector(".popup-sobreposition");
 let popupImage = document.querySelector(".popup-image");
-let popupImageText = document.querySelector(".popup-image__text")
-let popupImageSource = document.querySelector(".popup-image__image")
+let popupImageText = document.querySelector(".popup-image__text");
+let popupImageSource = document.querySelector(".popup-image__image");
 let closePopup = document.querySelector(".popup__close-button");
 let closePopupImage = document.querySelector(".popup__close-button_image");
 let inputName = document.querySelector("#name");
@@ -20,7 +20,7 @@ let profileText = document.querySelector(".profile__text");
 let titlePopup = document.querySelector(".popup__title");
 let submitButton = document.querySelector(".popup__button");
 
-//Armazena NOME e LINK para cards iniciais
+// Armazena NOME e LINK para cards iniciais
 const initialCards = [
   {
     name: "Vale de Yosemite",
@@ -48,21 +48,17 @@ const initialCards = [
   }
 ];
 
-// Muda estado do Popup(aberto/fechado)
+// Muda estado do Popup (aberto/fechado)
 function togglePopup() {
   popup.classList.toggle("popup_opened");
 }
 
-function popupSobrepositionImage() {
-  popupSobreposition.classList.toggle("popup-sobreposition_opened");
-}
-
-//Muda estado do Popup do Image(aberto/fechado)
 function toggleImagePopup() {
   popupImage.classList.toggle("popup-image_opened");
+  popupSobrepositionImage.classList.toggle("popup-sobreposition_opened");
 }
 
-//Muda estado do botão de curtida(cliked, no cliked)
+// Muda estado do botão de curtida (cliked, no cliked)
 function toggleLikeButton(evt) {
   let clickedButton = evt.currentTarget;
   if (clickedButton.src.includes("hearth.svg")) {
@@ -73,9 +69,8 @@ function toggleLikeButton(evt) {
   clickedButton.classList.toggle("clicked");
 }
 
-//Cria toda estrutura do Card
+// Cria toda estrutura do Card
 function createCard(cardValue) {
-
   const card = document.createElement("div");
   card.classList.add("photos__card");
 
@@ -86,12 +81,10 @@ function createCard(cardValue) {
   card.appendChild(cardImage);
   cardImage.addEventListener("click", () => {
     toggleImagePopup();
-    popupSobrepositionImage();
     popupImageText.textContent = cardValue.name;
     popupImageSource.src = cardValue.link;
     popupImageSource.alt = `Imagem de ${cardValue.link} não encontrada`;
   });
-
 
   const deleteIcon = document.createElement("img");
   deleteIcon.classList.add('photos__delete-icon');
@@ -120,7 +113,7 @@ function createCard(cardValue) {
   return card;
 }
 
-//Renderiza os cards criados na página
+// Renderiza os cards criados na página
 function renderCards(cardList) {
   const container = document.querySelector('.photos');
   cardList.forEach(cardValue => {
@@ -129,15 +122,15 @@ function renderCards(cardList) {
   });
 }
 
-//Função do submit no Popup perfil
+// Função do submit no Popup perfil
 function handleProfileFormsSubmit(evt) {
-  evt.preventDefault()
+  evt.preventDefault();
   profileTitle.textContent = inputName.value;
   profileText.textContent = inputAbout.value;
   togglePopup();
 }
 
-//função do submit no Popup de Criação
+// Função do submit no Popup de Criação
 function handleCreationFormsSubmit(evt) {
   evt.preventDefault();
   const newCard = {
@@ -149,19 +142,18 @@ function handleCreationFormsSubmit(evt) {
   togglePopup();
 }
 
-//Estrutura do Popup do perfil
+// Estrutura do Popup do perfil
 openProfile.addEventListener("click", () => {
-  formElementCreation.classList.remove("popup__forms-opened")
-  formElementProfile.classList.add("popup__forms-opened")
+  formElementCreation.classList.remove("popup__forms-opened");
+  formElementProfile.classList.add("popup__forms-opened");
   togglePopup();
-
 });
 
-//Estrutura do Popup de Criação
+// Estrutura do Popup de Criação
 openCreation.addEventListener("click", () => {
-  formElementCreation.reset()
-  formElementProfile.classList.remove("popup__forms-opened")
-  formElementCreation.classList.add("popup__forms-opened")
+  formElementCreation.reset();
+  formElementProfile.classList.remove("popup__forms-opened");
+  formElementCreation.classList.add("popup__forms-opened");
   togglePopup();
 });
 
@@ -170,7 +162,31 @@ renderCards(initialCards);
 formElementProfile.addEventListener("submit", handleProfileFormsSubmit);
 formElementCreation.addEventListener("submit", handleCreationFormsSubmit);
 closePopup.addEventListener("click", togglePopup);
-closePopupImage.addEventListener("click", () => {
-  toggleImagePopup();
-  popupSobrepositionImage();
+closePopupImage.addEventListener("click", toggleImagePopup);
+
+popup.addEventListener("click", (evt) => {
+  if (evt.target === popup) {
+    if (popup.classList.contains("popup_opened")) {
+      togglePopup();
+    }
+  }
+});
+
+popupSobrepositionImage.addEventListener("click", (evt) => {
+  if (evt.target === popupSobrepositionImage ) {
+    if (popupImage.classList.contains("popup-image_opened")) {
+      toggleImagePopup();
+    }
+  }
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
+    if (popup.classList.contains("popup_opened")) {
+      togglePopup();
+    }
+    if (popupImage.classList.contains("popup-image_opened")) {
+      toggleImagePopup();
+    }
+  }
 });
