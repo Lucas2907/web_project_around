@@ -51,12 +51,31 @@ const initialCards = [
 // Muda estado do Popup (aberto/fechado)
 function togglePopup() {
   popup.classList.toggle("popup_opened");
+  resetFormsOnClose();
 }
 
 function toggleImagePopup() {
   popupImage.classList.toggle("popup-image_opened");
   popupSobrepositionImage.classList.toggle("popup-sobreposition_opened");
 }
+
+// Função para resetar formulários ao fechar o popup
+function resetFormsOnClose() {
+  formElementProfile.reset();
+  formElementCreation.reset();
+  const config = {
+    inputSelector: ".popup__input",
+    submitButtonSelector: ".popup__button",
+    inactiveButtonClass: "popup__button_disabled",
+    inputErrorClass: "popup__input_type_error",
+    errorClass: "popup__error_visible"
+  };
+  hideAllInputErrors(formElementProfile, config);
+  hideAllInputErrors(formElementCreation, config);
+  resetButtonState(formElementProfile, config);
+  resetButtonState(formElementCreation, config);
+}
+
 
 // Muda estado do botão de curtida (cliked, no cliked)
 function toggleLikeButton(evt) {
@@ -164,12 +183,21 @@ formElementCreation.addEventListener("submit", handleCreationFormsSubmit);
 closePopup.addEventListener("click", togglePopup);
 closePopupImage.addEventListener("click", toggleImagePopup);
 
-popup.addEventListener("click", (evt) => {
+let isMouseDownInsidePopup = false;
+
+popup.addEventListener("mousedown", (evt) => {
   if (evt.target === popup) {
+    isMouseDownInsidePopup = true;
+  }
+});
+
+popup.addEventListener("mouseup", (evt) => {
+  if (isMouseDownInsidePopup && evt.target === popup) {
     if (popup.classList.contains("popup_opened")) {
       togglePopup();
     }
   }
+  isMouseDownInsidePopup = false;
 });
 
 popupSobrepositionImage.addEventListener("click", (evt) => {

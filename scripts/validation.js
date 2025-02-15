@@ -1,4 +1,3 @@
-
 const formElement = document.querySelector(".popup__forms");
 const formInput = formElement.querySelector(".popup__input");
 
@@ -16,21 +15,19 @@ const hideInputError = (formElement, formInput) => {
   errorElement.textContent = "";
 };
 
+const hideAllInputErrors = (formElement) => {
+  const inputList = Array.from(formElement.querySelectorAll(".popup__input"));
+  inputList.forEach((formInput) => {
+    hideInputError(formElement, formInput);
+  });
+};
+
 const isValid = (formElement, formInput) => {
   if (!formInput.validity.valid || formInput.value.trim() === "") {
-    showInputError(formElement, formInput, formInput.validationMessage || "Campo obrigatório");
+    showInputError(formElement, formInput, formInput.validationMessage);
   } else {
     hideInputError(formElement, formInput);
   }
-};
-
-const validateFormOnLoad = (formElement) => {
-  const inputList = Array.from(formElement.querySelectorAll(".popup__input"));
-  inputList.forEach((formInput) => {
-    isValid(formElement, formInput);
-  });
-  const buttonElement = formElement.querySelector(".popup__button");
-  toggleButtonState(inputList, buttonElement);
 };
 
 const setEventListeners = (formElement) => {
@@ -51,13 +48,13 @@ const enableValidation = () => {
       evt.preventDefault();
     });
     setEventListeners(formElement);
-    validateFormOnLoad(formElement);
   });
 };
 
+
 const hasInvalidInput = (inputList) => {
   return inputList.some((inputElement) => {
-    return !inputElement.validity.valid || inputElement.value.trim() === "";
+    return !inputElement.validity.valid;
   });
 };
 
@@ -71,4 +68,17 @@ const toggleButtonState = (inputList, buttonElement) => {
   }
 };
 
-enableValidation();
+const resetButtonState = (formElement) => {
+  const inputList = Array.from(formElement.querySelectorAll(".popup__input"));
+  const buttonElement = formElement.querySelector(".popup__button");
+  toggleButtonState(inputList, buttonElement);
+};
+
+enableValidation({
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__button",
+  inactiveButtonClass: "popup__button-inactive",
+  inputErrorClass: "popup__input_error",
+  errorClass: "popup__input-error_active"
+});
