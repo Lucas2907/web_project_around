@@ -51,7 +51,6 @@ const initialCards = [
 // Muda estado do Popup (aberto/fechado)
 function togglePopup() {
   popup.classList.toggle("popup_opened");
-  resetFormsOnClose();
 }
 
 function toggleImagePopup() {
@@ -61,7 +60,6 @@ function toggleImagePopup() {
 
 // Função para resetar formulários ao fechar o popup
 function resetFormsOnClose() {
-  formElementProfile.reset();
   formElementCreation.reset();
   const config = {
     inputSelector: ".popup__input",
@@ -75,7 +73,6 @@ function resetFormsOnClose() {
   resetButtonState(formElementProfile, config);
   resetButtonState(formElementCreation, config);
 }
-
 
 // Muda estado do botão de curtida (cliked, no cliked)
 function toggleLikeButton(evt) {
@@ -163,6 +160,8 @@ function handleCreationFormsSubmit(evt) {
 
 // Estrutura do Popup do perfil
 openProfile.addEventListener("click", () => {
+  inputName.value = profileTitle.textContent;
+  inputAbout.value = profileText.textContent;
   formElementCreation.classList.remove("popup__forms-opened");
   formElementProfile.classList.add("popup__forms-opened");
   togglePopup();
@@ -180,7 +179,10 @@ renderCards(initialCards);
 
 formElementProfile.addEventListener("submit", handleProfileFormsSubmit);
 formElementCreation.addEventListener("submit", handleCreationFormsSubmit);
-closePopup.addEventListener("click", togglePopup);
+closePopup.addEventListener("click", () => {
+  togglePopup();
+  resetFormsOnClose();
+});
 closePopupImage.addEventListener("click", toggleImagePopup);
 
 let isMouseDownInsidePopup = false;
@@ -195,13 +197,14 @@ popup.addEventListener("mouseup", (evt) => {
   if (isMouseDownInsidePopup && evt.target === popup) {
     if (popup.classList.contains("popup_opened")) {
       togglePopup();
+      resetFormsOnClose();
     }
   }
   isMouseDownInsidePopup = false;
 });
 
 popupSobrepositionImage.addEventListener("click", (evt) => {
-  if (evt.target === popupSobrepositionImage ) {
+  if (evt.target === popupSobrepositionImage) {
     if (popupImage.classList.contains("popup-image_opened")) {
       toggleImagePopup();
     }
@@ -212,6 +215,7 @@ document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") {
     if (popup.classList.contains("popup_opened")) {
       togglePopup();
+      resetFormsOnClose();
     }
     if (popupImage.classList.contains("popup-image_opened")) {
       toggleImagePopup();
