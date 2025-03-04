@@ -20,7 +20,7 @@ const hideAllInputErrors = (formElement, settings) => {
 };
 
 const isValid = (formElement, formInput, settings) => {
-  if (!formInput.validity.valid || formInput.value.trim() === "") {
+  if (!formInput.validity.valid) {
     showInputError(formElement, formInput, formInput.validationMessage, settings);
   } else {
     hideInputError(formElement, formInput, settings);
