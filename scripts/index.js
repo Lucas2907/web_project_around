@@ -1,70 +1,49 @@
 import Card from "./Card.js";
+import FormValidator from "./FormValidator.js";
+import {
+  openProfile,
+  openCreation,
+  formElementProfile,
+  formElementCreation,
+  popup,
+  closePopup,
+  inputName,
+  inputAbout,
+  profileTitle,
+  profileText,
+  initialCards,
+  togglePopup,
+  handleProfileFormsSubmit,
+  handleCreationFormsSubmit,
+} from "./utils.js";
 
-// Armazenamento de variáveis
-let openProfile = document.querySelector(".profile__border-pincel");
-let openCreation = document.querySelector(".profile__border-plus");
-let formElementProfile = document.querySelector(".popup__forms-profile");
-let formElementCreation = document.querySelector(".popup__forms-creation");
-let popup = document.querySelector(".popup");
-let popupSobrepositionImage = document.querySelector(".popup-sobreposition");
-let popupImage = document.querySelector(".popup-image");
-let closePopup = document.querySelector(".popup__close-button");
-let inputName = document.querySelector("#name");
-let inputAbout = document.querySelector("#aboutme");
-let inputTitle = document.querySelector("#title");
-let inputUrl = document.querySelector("#url");
-let profileTitle = document.querySelector(".profile__title");
-let profileText = document.querySelector(".profile__text");
-let titlePopup = document.querySelector(".popup__title");
-let submitButton = document.querySelector(".popup__button");
-
-// Armazena NOME e LINK para cards iniciais
-const initialCards = [
-  {
-    name: "Vale de Yosemite",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_yosemite.jpg",
-  },
-  {
-    name: "Lago Louise",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_lake-louise.jpg",
-  },
-  {
-    name: "Montanhas Carecas",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_bald-mountains.jpg",
-  },
-  {
-    name: "Latemar",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_latemar.jpg",
-  },
-  {
-    name: "Parque Nacional da Vanoise",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_vanoise.jpg",
-  },
-  {
-    name: "Lago di Braies",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_lago.jpg",
-  },
-];
-
-// Muda estado do Popup (aberto/fechado)
-function togglePopup() {
-  popup.classList.toggle("popup_opened");
-}
-
-// Função para resetar formulários ao fechar o popup
-function resetFormsOnClose() {
-  formElementCreation.reset();
-  const config = {
+const form1 = new FormValidator({
+  config: {
     inputSelector: ".popup__input",
-    submitButtonSelector: ".popup__button",
-    inactiveButtonClass: "popup__button_disabled",
-    inputErrorClass: "popup__input_type_error",
-    errorClass: "popup__error_visible",
-  };
-  hideAllInputErrors(formElementProfile, config);
-  hideAllInputErrors(formElementCreation, config);
-  resetButtonState(formElementProfile, config);
-  resetButtonState(formElementCreation, config);
+    submitButtonSelector: ".popup__button-profile",
+    inactiveButtonClass: "popup__button-inactive",
+    inputErrorClass: ".popup__input_type_error",
+  },
+  formSelector: "#profile-form",
+});
+
+const form2 = new FormValidator({
+  config: {
+    inputSelector: ".popup__input",
+    submitButtonSelector: ".popup__button-creation",
+    inactiveButtonClass: "popup__button-inactive",
+    inputErrorClass: ".popup__input_type_error",
+  },
+  formSelector: "#creation-form",
+});
+
+form1.enableValidation();
+form2.enableValidation();
+
+// reseta todas as instancias de FormValidator
+function resetForms() {
+  form1.resetFormsOnClose();
+  form2.resetFormsOnClose();
 }
 
 // Renderiza os cards criados na página
@@ -78,31 +57,13 @@ function renderCards(cardList) {
     container.appendChild(newCard);
   });
 }
-
 renderCards(initialCards);
 
-// Função do submit no Popup perfil
-function handleProfileFormsSubmit(evt) {
-  evt.preventDefault();
-  profileTitle.textContent = inputName.value;
-  profileText.textContent = inputAbout.value;
+//adiciona eventos ao fechar popup
+closePopup.addEventListener("click", () => {
   togglePopup();
-}
-
-// Função do submit no Popup de Criação
-function handleCreationFormsSubmit(evt) {
-  evt.preventDefault();
-  togglePopup();
-  const imageName = inputTitle.value;
-  const urlImage = inputUrl.value;
-  const createCard = new Card({
-    card: { name: imageName, link: urlImage },
-    cardSelector: "#card-template",
-  }).generateCard();
-  document.querySelector(".photos").prepend(createCard);
-  imageName = "";
-  urlImage = "";
-}
+  resetForms();
+});
 
 // Estrutura do Popup do perfil
 openProfile.addEventListener("click", () => {
@@ -119,14 +80,11 @@ openCreation.addEventListener("click", () => {
   formElementProfile.classList.remove("popup__forms-opened");
   formElementCreation.classList.add("popup__forms-opened");
   togglePopup();
+  resetForms();
 });
 
 formElementProfile.addEventListener("submit", handleProfileFormsSubmit);
 formElementCreation.addEventListener("submit", handleCreationFormsSubmit);
-closePopup.addEventListener("click", () => {
-  togglePopup();
-  resetFormsOnClose();
-});
 
 let isMouseDownInsidePopup = false;
 
@@ -140,7 +98,7 @@ popup.addEventListener("mouseup", (evt) => {
   if (isMouseDownInsidePopup && evt.target === popup) {
     if (popup.classList.contains("popup_opened")) {
       togglePopup();
-      resetFormsOnClose();
+      resetForms();
     }
   }
   isMouseDownInsidePopup = false;
@@ -150,10 +108,7 @@ document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") {
     if (popup.classList.contains("popup_opened")) {
       togglePopup();
-      resetFormsOnClose();
-    }
-    if (popupImage.classList.contains("popup-image_opened")) {
-      toggleImagePopup();
+      resetForms();
     }
   }
 });

@@ -6,7 +6,7 @@ export default class Card {
     this._cardSelector = cardSelector;
     this._popupOpened = null;
 
-    //seletores
+    //seletores gerais
     this._popupImage = document.querySelector(".popup-image");
     this._popupImageText = document.querySelector(".popup-image__text");
     this._popImageSource = document.querySelector(".popup-image__image");
@@ -41,10 +41,21 @@ export default class Card {
 
     // fecha o popupImage ao apertar fora do popup
     this._popupSobrepositionImage.addEventListener("click", (evt) => {
-      if (evt.target === this._popupSobrepositionImage) {
+      if (
+        evt.target === this._popupSobrepositionImage ||
+        evt.key === "Escape"
+      ) {
         if (this._popupImage.classList.contains("popup-image_opened")) {
           this._removeImagePopup(this._popupImage);
-          console.log(this._popupImage);
+        }
+      }
+    });
+
+    //fecha popupImage ao apertar a tecla "ESC"
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        if (this._popupImage.classList.contains("popup-image_opened")) {
+          this._removeImagePopup(this._popupImage);
         }
       }
     });
@@ -55,7 +66,7 @@ export default class Card {
       this._cardElement.remove();
     });
 
-    // icone  curtida
+    // icone curtida
     this._cardLike = this._cardElement.querySelector(".photos__like");
     this._cardLike.addEventListener("click", (evt) => {
       this._toggleLikeButtonState(evt);
@@ -84,10 +95,8 @@ export default class Card {
     let button = evt.currentTarget;
     if (button.src.includes("hearth.svg")) {
       button.src = "./images/Union.svg";
-      console.log("ativo");
     } else {
       button.src = "./images/hearth.svg";
-      console.log("inativo");
     }
     button.classList.toggle("clicked");
   }
