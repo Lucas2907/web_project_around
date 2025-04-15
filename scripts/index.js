@@ -1,5 +1,6 @@
 import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
+import Section from "./Section.js";
 import {
   openProfile,
   openCreation,
@@ -46,18 +47,22 @@ function resetForms() {
   form2.resetFormsOnClose();
 }
 
-// Renderiza os cards criados na página
-function renderCards(cardList) {
-  const container = document.querySelector(".photos");
-  cardList.forEach((cardValue) => {
-    const newCard = new Card({
-      card: cardValue,
-      cardSelector: "#card-template",
-    }).generateCard();
-    container.appendChild(newCard);
-  });
+function mostraItems(card) {
+  const newCard = new Card({
+    card,
+    cardSelector: "#card-template",
+  }).generateCard();
+  section.addItems(newCard);
 }
-renderCards(initialCards);
+
+const section = new Section(
+  {
+    itens: initialCards,
+    renderer: mostraItems,
+  },
+  ".photos"
+);
+section.renderItens();
 
 //adiciona eventos ao fechar popup
 closePopup.addEventListener("click", () => {
