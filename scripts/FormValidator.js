@@ -4,7 +4,7 @@ export default class FormValidator {
     this._formSelector = formSelector;
   }
 
-  //manipuladores de evento de formulário
+  //Form SetEventListeners
   _setEventListeners() {
     this._inputList.forEach((formInput) => {
       formInput.addEventListener("input", () => {
@@ -21,12 +21,11 @@ export default class FormValidator {
     });
   }
 
-  //pega template formulário
   _getForm() {
     return document.querySelector(this._formSelector);
   }
 
-  //seleciona elementos a serem validados
+  // selects elements to be validated
   enableValidation() {
     this._form = this._getForm();
     this._inputList = Array.from(
@@ -38,7 +37,7 @@ export default class FormValidator {
     this._setEventListeners();
   }
 
-  //valida os inputs
+  //valide the inputs
   _isValid(form, input, config) {
     if (!input.validity.valid) {
       this._showInputError(form, input, input.validationMessage, config);
@@ -47,35 +46,35 @@ export default class FormValidator {
     }
   }
 
-  //verifica se a algum input inválido
+  // checks for any invalid input
   _hasInvalidInput = (inputList) => {
     return inputList.some((inputElement) => {
       return !inputElement.validity.valid;
     });
   };
 
-  //mostra erro do input
+  //show input error
   _showInputError(form, input, errorMessage, config) {
     this._errorElement = form.querySelector(`.${input.id}-error`);
     input.classList.add(config.inputErrorClass);
     this._errorElement.textContent = errorMessage;
   }
 
-  //esconde erro do input
+  //hide input error
   _hideInputError(form, input, config) {
     this._errorElement = form.querySelector(`.${input.id}-error`);
     input.classList.remove(config.inputErrorClass);
     this._errorElement.textContent = "";
   }
 
-  //esconde todos os inputs de erro
+  //hide all input errors
   _hideAllInputErrors = (formElement, config) => {
     this._inputList.forEach((formInput) => {
       this._hideInputError(formElement, formInput, config);
     });
   };
 
-  //altera botão submit ativado/desativado
+  //change button state valid/ invalid
   _toggleButtonState = (inputList, buttonElement, config) => {
     if (this._hasInvalidInput(inputList)) {
       buttonElement.classList.add(config.inactiveButtonClass);
@@ -86,12 +85,12 @@ export default class FormValidator {
     }
   };
 
-  //reseta estado do botão
+  //reset button state
   _resetButtonState = (config) => {
     this._toggleButtonState(this._inputList, this._buttonElement, config);
   };
 
-  //reseta formulario
+  //reset form
   resetFormsOnClose() {
     this._getForm().reset();
     this._hideAllInputErrors(this._getForm(), this._config);

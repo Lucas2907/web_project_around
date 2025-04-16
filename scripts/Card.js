@@ -6,7 +6,7 @@ export default class Card {
     this._cardSelector = cardSelector;
     this._popupOpened = null;
 
-    //seletores gerais
+    //general selectors
     this._popupImage = document.querySelector(".popup-image");
     this._popupImageText = document.querySelector(".popup-image__text");
     this._popImageSource = document.querySelector(".popup-image__image");
@@ -18,9 +18,9 @@ export default class Card {
     );
   }
 
-  // manipuladores de eventos
+  // Event Listeners
   _setEventListeners() {
-    //adiciona evento de click nas imagens do card
+    //add click event to card images
     this._cardImage.addEventListener("click", (evt) => {
       let image = evt.currentTarget;
       if (!image.classList.contains("popup-image_opened")) {
@@ -32,14 +32,14 @@ export default class Card {
       this._popImageSource.alt = `Imagem de ${this._text} não encontrada`;
     });
 
-    // fecha o popupImage ao apertar no botão de fechar
+    //closes the popupImage when pressing the close button
     this._closePopupImage.addEventListener("click", () => {
       if (this._popupOpened) {
         this._removeImagePopup(this._popupOpened);
       }
     });
 
-    // fecha o popupImage ao apertar fora do popup
+    //closes popupImage when pressing outside the Popup
     this._popupSobrepositionImage.addEventListener("click", (evt) => {
       if (
         evt.target === this._popupSobrepositionImage ||
@@ -51,7 +51,7 @@ export default class Card {
       }
     });
 
-    //fecha popupImage ao apertar a tecla "ESC"
+    //close the PopupImage when click in key "ESC"
     document.addEventListener("keydown", (event) => {
       if (event.key === "Escape") {
         if (this._popupImage.classList.contains("popup-image_opened")) {
@@ -60,26 +60,26 @@ export default class Card {
       }
     });
 
-    // icone delete
+    // icon delete
     this._deleteIcon = this._cardElement.querySelector(".photos__delete-icon");
     this._deleteIcon.addEventListener("click", () => {
       this._cardElement.remove();
     });
 
-    // icone curtida
+    // icon like
     this._cardLike = this._cardElement.querySelector(".photos__like");
     this._cardLike.addEventListener("click", (evt) => {
       this._toggleLikeButtonState(evt);
     });
   }
 
-  //abre popup image
+  //open popup image
   _addImagePopup() {
     this._popupImage.classList.add("popup-image_opened");
     this._popupSobrepositionImage.classList.add("popup-sobreposition_opened");
   }
 
-  //fecha popup image
+  //close popup image
   _removeImagePopup(image) {
     if (image) {
       this._popupImage.classList.remove("popup-image_opened");
@@ -90,7 +90,7 @@ export default class Card {
     this._popupOpened = null;
   }
 
-  //altera estado do botão de curtida
+  //change the like button state
   _toggleLikeButtonState(evt) {
     let button = evt.currentTarget;
     if (button.src.includes("hearth.svg")) {
@@ -101,14 +101,12 @@ export default class Card {
     button.classList.toggle("clicked");
   }
 
-  // pega template do card
   _getTemplate() {
     const template = document.querySelector(this._cardSelector).content;
     const card = template.querySelector(".photos__card").cloneNode(true);
     return card;
   }
 
-  //gera card
   generateCard() {
     this._cardElement = this._getTemplate();
     this._cardElement.querySelector(".photos__elements-text").textContent =

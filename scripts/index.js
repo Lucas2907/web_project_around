@@ -1,19 +1,17 @@
 import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
+import Popup from "./Popup.js";
 import Section from "./Section.js";
 import {
   openProfile,
   openCreation,
   formElementProfile,
   formElementCreation,
-  popup,
-  closePopup,
   inputName,
   inputAbout,
   profileTitle,
   profileText,
   initialCards,
-  togglePopup,
   handleProfileFormsSubmit,
   handleCreationFormsSubmit,
 } from "./utils.js";
@@ -41,7 +39,8 @@ const form2 = new FormValidator({
 form1.enableValidation();
 form2.enableValidation();
 
-// reseta todas as instancias de FormValidator
+
+// reset all instances of FormValidator
 function resetForms() {
   form1.resetFormsOnClose();
   form2.resetFormsOnClose();
@@ -55,6 +54,7 @@ function mostraItems(card) {
   section.addItems(newCard);
 }
 
+//card
 const section = new Section(
   {
     itens: initialCards,
@@ -64,56 +64,31 @@ const section = new Section(
 );
 section.renderItens();
 
-//adiciona eventos ao fechar popup
-closePopup.addEventListener("click", () => {
-  togglePopup();
-  resetForms();
-});
+//popup profile
+const popupProfile = new Popup(".popup");
+popupProfile.SetEventListeners();
 
-// Estrutura do Popup do perfil
+//popup Creation
+const popupCreation = new Popup(".popup");
+popupCreation.SetEventListeners();
+
+//  Profile Popup Structure
 openProfile.addEventListener("click", () => {
   inputName.value = profileTitle.textContent;
   inputAbout.value = profileText.textContent;
   formElementCreation.classList.remove("popup__forms-opened");
   formElementProfile.classList.add("popup__forms-opened");
-  togglePopup();
+  popupProfile.open();
 });
 
-// Estrutura do Popup de Criação
+// Creation Popup Structure
 openCreation.addEventListener("click", () => {
   formElementCreation.reset();
   formElementProfile.classList.remove("popup__forms-opened");
   formElementCreation.classList.add("popup__forms-opened");
-  togglePopup();
+  popupCreation.open();
   resetForms();
 });
 
 formElementProfile.addEventListener("submit", handleProfileFormsSubmit);
 formElementCreation.addEventListener("submit", handleCreationFormsSubmit);
-
-let isMouseDownInsidePopup = false;
-
-popup.addEventListener("mousedown", (evt) => {
-  if (evt.target === popup) {
-    isMouseDownInsidePopup = true;
-  }
-});
-
-popup.addEventListener("mouseup", (evt) => {
-  if (isMouseDownInsidePopup && evt.target === popup) {
-    if (popup.classList.contains("popup_opened")) {
-      togglePopup();
-      resetForms();
-    }
-  }
-  isMouseDownInsidePopup = false;
-});
-
-document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape") {
-    if (popup.classList.contains("popup_opened")) {
-      togglePopup();
-      resetForms();
-    }
-  }
-});
