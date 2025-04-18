@@ -1,7 +1,9 @@
 import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
 import Popup from "./Popup.js";
+import PopupWithImage from "./PopupWithImage.js";
 import Section from "./Section.js";
+import UserInfo from "./UserInfo.js";
 import {
   openProfile,
   openCreation,
@@ -16,6 +18,8 @@ import {
   handleCreationFormsSubmit,
 } from "./utils.js";
 
+
+//form1 (Instance)
 const form1 = new FormValidator({
   config: {
     inputSelector: ".popup__input",
@@ -26,6 +30,7 @@ const form1 = new FormValidator({
   formSelector: "#profile-form",
 });
 
+//form2 (Instance)
 const form2 = new FormValidator({
   config: {
     inputSelector: ".popup__input",
@@ -39,7 +44,6 @@ const form2 = new FormValidator({
 form1.enableValidation();
 form2.enableValidation();
 
-
 // reset all instances of FormValidator
 function resetForms() {
   form1.resetFormsOnClose();
@@ -50,11 +54,14 @@ function mostraItems(card) {
   const newCard = new Card({
     card,
     cardSelector: "#card-template",
+    openPopupImage: () => {
+      popupimage.open(card.link, card.name);
+    },
   }).generateCard();
   section.addItems(newCard);
 }
 
-//card
+//card (Instance)
 const section = new Section(
   {
     itens: initialCards,
@@ -64,11 +71,15 @@ const section = new Section(
 );
 section.renderItens();
 
-//popup profile
+//popup image (Instance)
+const popupimage = new PopupWithImage(".popup-sobreposition");
+popupimage.SetEventListeners();
+
+//popup profile(Instance)
 const popupProfile = new Popup(".popup");
 popupProfile.SetEventListeners();
 
-//popup Creation
+//popup Creation(Instance)
 const popupCreation = new Popup(".popup");
 popupCreation.SetEventListeners();
 

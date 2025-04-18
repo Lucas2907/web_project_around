@@ -1,10 +1,11 @@
 export default class Card {
-  constructor({ card, cardSelector }) {
+  constructor({ card, cardSelector, openPopupImage }) {
     this._card = card;
     this._text = card.name;
     this._link = card.link;
+    this._openPopupImage = openPopupImage;
     this._cardSelector = cardSelector;
-    this._popupOpened = null;
+    console.log(openPopupImage);
 
     //general selectors
     this._popupImage = document.querySelector(".popup-image");
@@ -21,44 +22,8 @@ export default class Card {
   // Event Listeners
   _setEventListeners() {
     //add click event to card images
-    this._cardImage.addEventListener("click", (evt) => {
-      let image = evt.currentTarget;
-      if (!image.classList.contains("popup-image_opened")) {
-        this._addImagePopup(image);
-      }
-      this._popupOpened = image;
-      this._popupImageText.textContent = this._text;
-      this._popImageSource.src = this._link;
-      this._popImageSource.alt = `Imagem de ${this._text} não encontrada`;
-    });
+    this._cardImage.addEventListener("click", this._openPopupImage);
 
-    //closes the popupImage when pressing the close button
-    this._closePopupImage.addEventListener("click", () => {
-      if (this._popupOpened) {
-        this._removeImagePopup(this._popupOpened);
-      }
-    });
-
-    //closes popupImage when pressing outside the Popup
-    this._popupSobrepositionImage.addEventListener("click", (evt) => {
-      if (
-        evt.target === this._popupSobrepositionImage ||
-        evt.key === "Escape"
-      ) {
-        if (this._popupImage.classList.contains("popup-image_opened")) {
-          this._removeImagePopup(this._popupImage);
-        }
-      }
-    });
-
-    //close the PopupImage when click in key "ESC"
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") {
-        if (this._popupImage.classList.contains("popup-image_opened")) {
-          this._removeImagePopup(this._popupImage);
-        }
-      }
-    });
 
     // icon delete
     this._deleteIcon = this._cardElement.querySelector(".photos__delete-icon");
@@ -75,14 +40,14 @@ export default class Card {
 
   //open popup image
   _addImagePopup() {
-    this._popupImage.classList.add("popup-image_opened");
+    this._popupImage.classList.add("popup_opened");
     this._popupSobrepositionImage.classList.add("popup-sobreposition_opened");
   }
 
   //close popup image
   _removeImagePopup(image) {
     if (image) {
-      this._popupImage.classList.remove("popup-image_opened");
+      this._popupImage.classList.remove("popup_opened");
       this._popupSobrepositionImage.classList.remove(
         "popup-sobreposition_opened"
       );
