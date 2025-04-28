@@ -47,13 +47,6 @@ export const initialCards = [
 ];
 
 // Submit function Profile Popup
-export function handleProfileFormsSubmit(evt) {
-  evt.preventDefault();
-  profileTitle.textContent = inputName.value;
-  profileText.textContent = inputAbout.value;
-  togglePopup();
-}
-
 // Submit function Creation Popup
 export function handleCreationFormsSubmit(evt) {
   evt.preventDefault();

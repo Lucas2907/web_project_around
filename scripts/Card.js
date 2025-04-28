@@ -5,25 +5,13 @@ export default class Card {
     this._link = card.link;
     this._openPopupImage = openPopupImage;
     this._cardSelector = cardSelector;
-    console.log(openPopupImage);
-
-    //general selectors
-    this._popupImage = document.querySelector(".popup-image");
-    this._popupImageText = document.querySelector(".popup-image__text");
-    this._popImageSource = document.querySelector(".popup-image__image");
-    this._popupSobrepositionImage = document.querySelector(
-      ".popup-sobreposition"
-    );
-    this._closePopupImage = document.querySelector(
-      ".popup__close-button_image"
-    );
   }
 
   // Event Listeners
   _setEventListeners() {
+    
     //add click event to card images
     this._cardImage.addEventListener("click", this._openPopupImage);
-
 
     // icon delete
     this._deleteIcon = this._cardElement.querySelector(".photos__delete-icon");
@@ -36,23 +24,6 @@ export default class Card {
     this._cardLike.addEventListener("click", (evt) => {
       this._toggleLikeButtonState(evt);
     });
-  }
-
-  //open popup image
-  _addImagePopup() {
-    this._popupImage.classList.add("popup_opened");
-    this._popupSobrepositionImage.classList.add("popup-sobreposition_opened");
-  }
-
-  //close popup image
-  _removeImagePopup(image) {
-    if (image) {
-      this._popupImage.classList.remove("popup_opened");
-      this._popupSobrepositionImage.classList.remove(
-        "popup-sobreposition_opened"
-      );
-    }
-    this._popupOpened = null;
   }
 
   //change the like button state

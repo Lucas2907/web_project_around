@@ -2,8 +2,8 @@ import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
 import Popup from "./Popup.js";
 import PopupWithImage from "./PopupWithImage.js";
+import PopupWithForm from "./PopupWithForm.js";
 import Section from "./Section.js";
-import UserInfo from "./UserInfo.js";
 import {
   openProfile,
   openCreation,
@@ -14,10 +14,29 @@ import {
   profileTitle,
   profileText,
   initialCards,
-  handleProfileFormsSubmit,
-  handleCreationFormsSubmit,
 } from "./utils.js";
 
+const formProfile = new PopupWithForm(".popup-profile", {
+  handleFormSubmit: (formValues) => {
+    profileTitle.textContent = formValues.name;
+    profileText.textContent = formValues.aboutme;
+    formProfile.close();
+  },
+});
+formProfile.setEventListeners();
+
+const formCreation = new PopupWithForm(".popup-creation", {
+  handleFormSubmit: (formValues) => {
+    console.log(formValues);
+    const cardData = {
+      name: formValues.title,
+      link: formValues.url,
+    };
+    mostraItems(cardData);
+  },
+});
+
+formCreation.setEventListeners();
 
 //form1 (Instance)
 const form1 = new FormValidator({
@@ -29,6 +48,7 @@ const form1 = new FormValidator({
   },
   formSelector: "#profile-form",
 });
+form1.enableValidation();
 
 //form2 (Instance)
 const form2 = new FormValidator({
@@ -40,15 +60,7 @@ const form2 = new FormValidator({
   },
   formSelector: "#creation-form",
 });
-
-form1.enableValidation();
 form2.enableValidation();
-
-// reset all instances of FormValidator
-function resetForms() {
-  form1.resetFormsOnClose();
-  form2.resetFormsOnClose();
-}
 
 function mostraItems(card) {
   const newCard = new Card({
@@ -73,15 +85,15 @@ section.renderItens();
 
 //popup image (Instance)
 const popupimage = new PopupWithImage(".popup-sobreposition");
-popupimage.SetEventListeners();
+popupimage.setEventListeners();
 
 //popup profile(Instance)
-const popupProfile = new Popup(".popup");
-popupProfile.SetEventListeners();
+const popupProfile = new Popup(".popup-profile");
+popupProfile.setEventListeners();
 
 //popup Creation(Instance)
-const popupCreation = new Popup(".popup");
-popupCreation.SetEventListeners();
+const popupCreation = new Popup(".popup-creation");
+popupCreation.setEventListeners();
 
 //  Profile Popup Structure
 openProfile.addEventListener("click", () => {
@@ -94,12 +106,7 @@ openProfile.addEventListener("click", () => {
 
 // Creation Popup Structure
 openCreation.addEventListener("click", () => {
-  formElementCreation.reset();
   formElementProfile.classList.remove("popup__forms-opened");
   formElementCreation.classList.add("popup__forms-opened");
   popupCreation.open();
-  resetForms();
 });
-
-formElementProfile.addEventListener("submit", handleProfileFormsSubmit);
-formElementCreation.addEventListener("submit", handleCreationFormsSubmit);
