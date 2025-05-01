@@ -9,7 +9,6 @@ export default class Card {
 
   // Event Listeners
   _setEventListeners() {
-    
     //add click event to card images
     this._cardImage.addEventListener("click", this._openPopupImage);
 

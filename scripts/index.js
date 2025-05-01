@@ -4,6 +4,7 @@ import Popup from "./Popup.js";
 import PopupWithImage from "./PopupWithImage.js";
 import PopupWithForm from "./PopupWithForm.js";
 import Section from "./Section.js";
+import UserInfo from "./UserInfo.js";
 import {
   openProfile,
   openCreation,
@@ -16,10 +17,15 @@ import {
   initialCards,
 } from "./utils.js";
 
+const profileUser = new UserInfo({
+  nameSelector: ".profile__title",
+  aboutSelector: ".profile__text",
+});
+
 const formProfile = new PopupWithForm(".popup-profile", {
   handleFormSubmit: (formValues) => {
-    profileTitle.textContent = formValues.name;
-    profileText.textContent = formValues.aboutme;
+    console.log(formValues);
+    profileUser.setUserInfo(formValues);
     formProfile.close();
   },
 });
@@ -97,8 +103,9 @@ popupCreation.setEventListeners();
 
 //  Profile Popup Structure
 openProfile.addEventListener("click", () => {
-  inputName.value = profileTitle.textContent;
-  inputAbout.value = profileText.textContent;
+  const data = profileUser.getUserInfo();
+  inputName.value = data.name;
+  inputAbout.value = data.about;
   formElementCreation.classList.remove("popup__forms-opened");
   formElementProfile.classList.add("popup__forms-opened");
   popupProfile.open();
