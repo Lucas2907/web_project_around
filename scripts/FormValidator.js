@@ -90,7 +90,6 @@ export default class FormValidator {
 
   //reset form
   resetFormsOnClose() {
-    this._getForm().reset();
     this._hideAllInputErrors(this._getForm(), this._config);
     this._resetButtonState(this._config);
   }
