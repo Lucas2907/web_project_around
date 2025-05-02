@@ -46,7 +46,6 @@ export const initialCards = [
   },
 ];
 
-// Submit function Profile Popup
 // Submit function Creation Popup
 export function handleCreationFormsSubmit(evt) {
   evt.preventDefault();

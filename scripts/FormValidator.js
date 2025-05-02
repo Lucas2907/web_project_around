@@ -69,6 +69,7 @@ export default class FormValidator {
     this._inputList.forEach((formInput) => {
       this._hideInputError(formElement, formInput, config);
     });
+    console.log(this._hideAllInputErrors);
   };
 
   //change button state valid/ invalid

@@ -12,8 +12,6 @@ import {
   formElementCreation,
   inputName,
   inputAbout,
-  profileTitle,
-  profileText,
   initialCards,
 } from "./utils.js";
 
@@ -24,7 +22,6 @@ const profileUser = new UserInfo({
 
 const formProfile = new PopupWithForm(".popup-profile", {
   handleFormSubmit: (formValues) => {
-    console.log(formValues);
     profileUser.setUserInfo(formValues);
     formProfile.close();
   },
@@ -33,7 +30,6 @@ formProfile.setEventListeners();
 
 const formCreation = new PopupWithForm(".popup-creation", {
   handleFormSubmit: (formValues) => {
-    console.log(formValues);
     const cardData = {
       name: formValues.title,
       link: formValues.url,
@@ -44,26 +40,24 @@ const formCreation = new PopupWithForm(".popup-creation", {
 
 formCreation.setEventListeners();
 
+//config forms
+const configValidation = {
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__button",
+  inactiveButtonClass: "popup__button-inactive",
+  inputErrorClass: ".popup__input_type_error",
+};
+
 //form1 (Instance)
 const form1 = new FormValidator({
-  config: {
-    inputSelector: ".popup__input",
-    submitButtonSelector: ".popup__button-profile",
-    inactiveButtonClass: "popup__button-inactive",
-    inputErrorClass: ".popup__input_type_error",
-  },
+  config: configValidation,
   formSelector: "#profile-form",
 });
 form1.enableValidation();
 
 //form2 (Instance)
 const form2 = new FormValidator({
-  config: {
-    inputSelector: ".popup__input",
-    submitButtonSelector: ".popup__button-creation",
-    inactiveButtonClass: "popup__button-inactive",
-    inputErrorClass: ".popup__input_type_error",
-  },
+  config: configValidation,
   formSelector: "#creation-form",
 });
 form2.enableValidation();
@@ -103,6 +97,7 @@ popupCreation.setEventListeners();
 
 //  Profile Popup Structure
 openProfile.addEventListener("click", () => {
+  form1.resetFormsOnClose();
   const data = profileUser.getUserInfo();
   inputName.value = data.name;
   inputAbout.value = data.about;
@@ -113,6 +108,7 @@ openProfile.addEventListener("click", () => {
 
 // Creation Popup Structure
 openCreation.addEventListener("click", () => {
+  form2.resetFormsOnClose();
   formElementProfile.classList.remove("popup__forms-opened");
   formElementCreation.classList.add("popup__forms-opened");
   popupCreation.open();
