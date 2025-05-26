@@ -19,6 +19,10 @@ export default class Popup {
     this._selector.classList.remove(this._openedClass);
   }
 
+  getSubmitButton() {
+    return this._form.querySelector(".popup__button");
+  }
+
   _handleEscClose(evt) {
     if (evt.key === "Escape") {
       this.close();

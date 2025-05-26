@@ -18,13 +18,19 @@
       </header>
       <main class="main">
         <section class="profile">
-          <img
-            src="./images/veidahavan.jpg"
-            alt="Imagem de uma senhor sorridente, com touca vermelha esboçando um lindo sorriso"
-            class="profile__image"
-          />
+          <div class="profile-container">
+            <img
+              alt="Imagem de uma senhor sorridente, com touca vermelha esboçando um lindo sorriso"
+              class="profile__image"
+            />
+            <img
+              src="./images/pencil.svg"
+              alt="icone de edição"
+              class="image-profile-pincel"
+            />
+          </div>
           <div class="profile__feat">
-            <h1 class="profile__title">Jacques Cousteau</h1>
+            <h1 class="profile__title"></h1>
             <div class="profile__border-pincel">
               <img
                 src="./images/pencil.svg"
@@ -32,7 +38,7 @@
                 class="profile__pincel"
               />
             </div>
-            <p class="profile__text">Explorador</p>
+            <p class="profile__text"></p>
           </div>
           <div class="profile__border-plus">
             <img
@@ -66,7 +72,6 @@
                   required
                   minlength="2"
                   maxlength="40"
-                  value="Jacques Cousteau"
                 />
                 <span class="popup__input-error name-error"></span>
               </div>
@@ -75,9 +80,8 @@
                   class="popup__input popup__input-about-me"
                   type="text"
                   id="aboutme"
-                  name="aboutme"
+                  name="about"
                   placeholder="Sobre mim"
-                  value="Explorador"
                   required
                   minlength="2"
                   maxlength="200"
@@ -137,7 +141,52 @@
           />
         </div>
       </div>
-
+      <div class="popup popup-confirmation">
+        <div class="popup__container">
+          <form
+            id="confirmation-form"
+            class="popup__forms popup__forms-confirmation"
+            novalidate
+          >
+            <h3 class="popup__title">Tem certeza?</h3>
+            <button class="popup__button" type="submit">Sim</button>
+          </form>
+          <img
+            src="./images/plussign.svg"
+            alt="imagem de um icone de fechar"
+            class="popup__close-button"
+          />
+        </div>
+      </div>
+      <div class="popup popup-imageProfile">
+        <div class="popup__container">
+          <form
+            id="imageProfile-form"
+            class="popup__forms popup__forms-imageProfile"
+            novalidate
+          >
+            <h3 class="popup__title">Alterar a foto do perfil</h3>
+            <div class="popup__inputs-container">
+              <input
+                class="popup__input popup__input-link"
+                type="url"
+                id="url"
+                name="url"
+                pattern=".+\.(jpg|jpeg|png|gif|webp|svg)$"
+                placeholder="Link da imagem"
+                required
+              />
+              <span class="popup__input-error url-error"></span>
+            </div>
+            <button class="popup__button" type="submit">Salvar</button>
+          </form>
+          <img
+            src="./images/plussign.svg"
+            alt="imagem de um icone de fechar"
+            class="popup__close-button"
+          />
+        </div>
+      </div>
       <div class="popup-sobreposition">
         <div class="popup-image">
           <img
