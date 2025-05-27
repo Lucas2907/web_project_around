@@ -62,7 +62,6 @@ const formProfile = new PopupWithForm(".popup-profile", {
   handleFormSubmit: (userInfo) => {
     const submitButton = formProfile.getSubmitButton();
     submitButton.textContent = "Salvando...";
-    debugger;
     api
       .setUserInfo({
         name: userInfo.name,
@@ -122,7 +121,6 @@ const formCreation = new PopupWithForm(".popup-creation", {
   handleFormSubmit: () => {
     const submitButton = formCreation.getSubmitButton();
     submitButton.textContent = "Salvando...";
-    debugger;
     api
       .createCard({
         isLiked: false,
@@ -155,7 +153,6 @@ const formImageProfile = new PopupWithForm(".popup-imageProfile", {
   handleFormSubmit: (dados) => {
     const submitButton = formImageProfile.getSubmitButton();
     submitButton.textContent = "Salvando...";
-    debugger;
     api
       .changeProfileImage({ avatar: dados.url })
       .then((response) => {
@@ -237,7 +234,6 @@ function mostraItems(card, isPrepend) {
       confirmationPopup.setHandleDeleteCard(() => {
         const submitButton = confirmationPopup.getSubmitButton();
         submitButton.textContent = "Excluindo...";
-        debugger;
         api
           .deleteCard(card._card._id)
           .then((response) => {
