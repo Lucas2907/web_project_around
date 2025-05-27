@@ -48,9 +48,9 @@ export default class Card {
   //change the like button state
   _toggleLikeButtonState() {
     if (this._isLiked) {
-      this._likeButton.src = "../../assets/images/Union.svg";
+      this._likeButton.src = "./assets/images/Union.svg";
     } else {
-      this._likeButton.src = "../../assets/images/hearth.svg";
+      this._likeButton.src = "./assets/images/hearth.svg";
     }
     this._likeButton.classList.toggle("clicked");
   }
