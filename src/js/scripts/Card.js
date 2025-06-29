@@ -25,7 +25,6 @@ export default class Card {
     this._deleteIcon = this._cardElement.querySelector(".photos__delete-icon");
     this._deleteIcon.addEventListener("click", () => {
       this._handleOpenConfirmation(this);
-      console.log("abri o popup confirmation");
     });
 
     // icon like

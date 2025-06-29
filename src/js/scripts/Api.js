@@ -22,7 +22,7 @@ export default class Api {
       body: JSON.stringify({
         name,
         about,
-        avatar
+        avatar,
       }),
     });
   }
@@ -81,7 +81,7 @@ export default class Api {
     );
   }
 
-  changeProfileImage({avatar}) {
+  changeProfileImage({ avatar }) {
     return fetch(
       "https://around-api.pt-br.tripleten-services.com/v1/users/me/avatar",
       {
